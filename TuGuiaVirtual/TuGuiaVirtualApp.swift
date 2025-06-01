@@ -25,7 +25,7 @@ struct TuGuiaVirtualApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+           PlacesView()
         }
         .modelContainer(sharedModelContainer)
     }
