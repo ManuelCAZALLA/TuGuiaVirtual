@@ -7,17 +7,20 @@
 
 import SwiftUI
 
+import SwiftUI
+import CoreLocation
+
 struct PlacesView: View {
     @StateObject private var viewModel = PlacesViewModel()
+    @StateObject private var locationManager = LocationManager()
     @State private var cityInput: String = ""
     @State private var selectedCategory: PlaceCategory = .bar
 
     var body: some View {
         NavigationView {
             ZStack {
-                // Fondo con gradiente 
                 LinearGradient(
-                    gradient: Gradient(colors: [Color.blue.opacity(0.3), Color.purple.opacity(0.3)]),
+                    gradient: Gradient(colors: [.backgroundGradientStart, .backgroundGradientEnd]),
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
@@ -32,38 +35,19 @@ struct PlacesView: View {
                             .shadow(radius: 2)
                             .padding(.horizontal)
 
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 12) {
-                                ForEach(PlaceCategory.allCases) { category in
-                                    Button(action: {
-                                        selectedCategory = category
-                                    }) {
-                                        Text("\(category.emoji) \(category.displayName)")
-                                            .padding(.horizontal, 12)
-                                            .padding(.vertical, 8)
-                                            .background(selectedCategory == category ? Color.blue.opacity(0.8) : Color.white)
-                                            .foregroundColor(selectedCategory == category ? .white : .black)
-                                            .cornerRadius(20)
-                                            .shadow(radius: 2)
-                                    }
-                                }
-                            }
-                            .padding(.horizontal)
+                        CategorySelectorView(selectedCategory: $selectedCategory)
+
+                        SearchButton {
+                            viewModel.searchPlacesByCity(cityName: cityInput, category: selectedCategory.rawValue)
                         }
 
-                        Button(action: {
-                            viewModel.searchPlacesByCity(cityName: cityInput, category: selectedCategory.rawValue)
-                        }) {
-                            Text("Buscar lugares")
-                                .bold()
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(12)
-                                .shadow(radius: 3)
+                        NearbyButton {
+                            if let location = locationManager.userLocation {
+                                viewModel.loadPlaces(latitude: location.latitude, longitude: location.longitude, category: selectedCategory.rawValue)
+                            } else {
+                                viewModel.errorMessage = "Ubicación no disponible o sin permisos."
+                            }
                         }
-                        .padding(.horizontal)
                     }
 
                     if let error = viewModel.errorMessage {
@@ -73,23 +57,23 @@ struct PlacesView: View {
                     }
 
                     List(viewModel.places) { place in
-                        VStack(alignment: .leading, spacing: 4) {
+                        VStack(alignment: .leading) {
                             Text(place.name ?? "Sin nombre")
                                 .font(.headline)
-                                .foregroundColor(.primary)
-
                             Text("\(place.street ?? "") \(place.city ?? "")")
                                 .font(.subheadline)
                                 .foregroundColor(.secondary)
                         }
-                        .padding(.vertical, 8)
+                        .padding(.vertical, 6)
                     }
                     .listStyle(.plain)
-                    .background(Color.clear)
                 }
                 .padding(.top)
             }
             .navigationTitle("Guía Virtual")
+        }
+        .onAppear {
+            locationManager.requestLocation()
         }
     }
 }

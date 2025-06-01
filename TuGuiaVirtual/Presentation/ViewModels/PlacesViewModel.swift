@@ -12,7 +12,8 @@ class PlacesViewModel: ObservableObject {
     @Published var places: [GeoapifyPlace] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
-
+    
+    private let locationManager = LocationManager()
     private let service = GeoapifyPlacesService()
     
     func loadPlaces(latitude: Double, longitude: Double, category: String = "entertainment") {
@@ -53,4 +54,14 @@ class PlacesViewModel: ObservableObject {
             }
         }
     }
+    
+    func searchPlacesNearby(category: String) {
+            guard let location = locationManager.userLocation else {
+                self.errorMessage = "No se pudo obtener tu ubicación actual."
+                return
+            }
+
+            self.loadPlaces(latitude: location.latitude, longitude: location.longitude, category: category)
+        }
+
 }
