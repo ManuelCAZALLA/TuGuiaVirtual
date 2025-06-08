@@ -13,6 +13,7 @@ struct LoadingIndicator: View {
             .progressViewStyle(CircularProgressViewStyle(tint: .white))
             .scaleEffect(2)
             
+            
     }
 }
 

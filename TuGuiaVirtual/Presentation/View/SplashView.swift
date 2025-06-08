@@ -20,6 +20,7 @@ struct SplashView: View {
                     .ignoresSafeArea()
                 
                 LoadingIndicator()
+               // Provisional
             }
             .onAppear {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
