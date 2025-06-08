@@ -1,0 +1,44 @@
+# Mac system files
+.DS_Store
+
+# Xcode user data
+*.xcuserdata
+*.xcuserstate
+*.xcworkspace/xcuserdata
+*.xcodeproj/project.xcworkspace/xcuserdata
+*.xcodeproj/xcuserdata
+*.xcscheme
+*.xcschememanagement.plist
+
+# Swift Package Manager
+.build/
+Packages/
+.swiftpm/
+
+# CocoaPods
+Pods/
+Podfile.lock
+DerivedData/
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+
+# Archives
+*.xcarchive
+
+# Logs
+*.log
+
+# Temporary files
+*.swp
+*.tmp
+
+# Symbolication files
+*.dSYM.zip
+*.dSYM
+
