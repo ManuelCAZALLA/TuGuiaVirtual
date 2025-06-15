@@ -29,9 +29,22 @@
 		3C74CA482DE385C700DC973E /* TuGuiaVirtualUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TuGuiaVirtualUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		3CD4D7BA2DF97BBC00BF69D7 /* Exceptions for "TuGuiaVirtual" folder in "TuGuiaVirtual" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Presentation/View/New Folder/Untitled.swift",
+			);
+			target = 3C74CA2B2DE385C400DC973E /* TuGuiaVirtual */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3C74CA2E2DE385C400DC973E /* TuGuiaVirtual */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3CD4D7BA2DF97BBC00BF69D7 /* Exceptions for "TuGuiaVirtual" folder in "TuGuiaVirtual" target */,
+			);
 			path = TuGuiaVirtual;
 			sourceTree = "<group>";
 		};

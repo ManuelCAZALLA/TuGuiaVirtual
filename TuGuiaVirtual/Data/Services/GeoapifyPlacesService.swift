@@ -40,7 +40,12 @@ class GeoapifyPlacesService {
             do {
                 let decoded = try JSONDecoder().decode(GeoapifyPlaceModel.self, from: data)
                 DispatchQueue.main.async {
-                    completion(decoded.features.map { $0.properties })
+                    completion(decoded.features.map { feature in
+                        var place = feature.properties
+                        place.latitude = feature.geometry.coordinates[1]
+                        place.longitude = feature.geometry.coordinates[0]
+                        return place
+                    })
                 }
             } catch {
                 print("Error de parseo: \(error)")
