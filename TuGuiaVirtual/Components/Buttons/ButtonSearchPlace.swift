@@ -12,17 +12,27 @@ struct SearchButton: View {
     
     var body: some View {
         Button(action: action) {
-            Label("Buscar lugares", systemImage: "magnifyingglass")
-                .font(.headline)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.accentColor)
-                .foregroundColor(.white)
-                .cornerRadius(12)
-                .shadow(radius: 3)
+            HStack {
+                Image(systemName: "magnifyingglass")
+                Text("Buscar lugares")
+            }
+            .font(.headline)
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.accentColor)
+                    .shadow(color: Color.accentColor.opacity(0.3), radius: 5, x: 0, y: 3)
+            )
+            .foregroundColor(.white)
         }
-        .padding(.horizontal)
     }
+}
+
+#Preview {
+    SearchButton(action: {})
+        .padding()
+        
 }
 
 

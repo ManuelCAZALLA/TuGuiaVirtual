@@ -12,19 +12,25 @@ struct NearbyButton: View {
     
     var body: some View {
         Button(action: action) {
-            Label("Cerca de mí", systemImage: "location.fill")
-                .font(.headline)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.green)
-                .foregroundColor(.white)
-                .cornerRadius(12)
-                .shadow(radius: 3)
+            HStack {
+                Image(systemName: "location.fill")
+                Text("Cerca de mí")
+            }
+            .font(.headline)
+            .frame(maxWidth: .infinity)
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.green)
+                    .shadow(color: Color.green.opacity(0.3), radius: 5, x: 0, y: 3)
+            )
+            .foregroundColor(.white)
         }
-        .padding(.horizontal)
     }
 }
 
 #Preview {
     NearbyButton(action: {})
+        .padding()
+        
 }
